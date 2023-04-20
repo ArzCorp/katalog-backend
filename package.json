@@ -1,0 +1,31 @@
+{
+	"name": "nenis-store",
+	"version": "1.0.0",
+	"description": "This is a project to testing node js with MySQL",
+	"main": "index.js",
+	"scripts": {
+		"start": "npx nodemon index.js"
+	},
+	"keywords": [
+		"node",
+		"js",
+		"express",
+		"mysql",
+		"store"
+	],
+	"author": "@arzcorp_",
+	"license": "MIT",
+	"dependencies": {
+		"bcrypt": "5.1.0",
+		"dotenv": "16.0.3",
+		"express": "4.18.2",
+		"mysql2": "3.2.3"
+	},
+	"devDependencies": {
+		"standard": "17.0.0"
+	},
+	"eslintConfig": {
+		"extends": "./eslintrc"
+	},
+	"type": "module"
+}
