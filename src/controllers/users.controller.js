@@ -1,30 +1,45 @@
-import { hash } from 'bcrypt'
+import { hashSync } from 'bcrypt'
 import { pool } from '../../db.js'
-import { RESPONSE_TEMPLATE, SALT_ROUNDS } from '../utils/constants.js'
+import { sendErrorResponse } from '../utils/sendErrorResponse.js'
+import {
+	CREATE_USER_ERROR,
+	GET_USER_QUERY,
+	POST_USER_QUERY,
+	RESPONSE_TEMPLATE,
+	SALT_ROUNDS,
+	getUserError,
+	messageCreateSuccessUser,
+} from '../utils/constants.js'
 
-export const getUsersController = async (req, res) => {
-	const queryResponse = await pool.query('SELECT * FROM users;')
-	const response = {
-		...RESPONSE_TEMPLATE,
-		data: queryResponse[0],
-		results: queryResponse[0].length,
-	}
+const getUser = async (email) => {
+	const [queryResponse] = await pool.query(GET_USER_QUERY, [email])
+	if (queryResponse.length <= 0) throw new Error(getUserError(email))
 
-	res.send(response)
+	return queryResponse[0].email
 }
 
 export const postUsersController = async (req, res) => {
-	const { body } = req
-	const { password, name, lastname, email } = body
-	const query =
-		'INSERT INTO users (name, password, email, lastname) VALUES (?, ?, ?, ?)'
+	try {
+		const { body } = req
+		const { password, name, lastname, email } = body
+		const hashPassword = await hashSync(password, SALT_ROUNDS)
 
-	hash(password, SALT_ROUNDS, async (error, result) => {
-		const userData = [name, result, email, lastname]
-		const queryResult = await pool.query(query, userData)
-		console.log({ queryResult })
-	})
-	const response = { ...RESPONSE_TEMPLATE }
+		const newUserData = [name, hashPassword, email, lastname]
+		await pool.query(POST_USER_QUERY, newUserData)
 
-	res.send(response)
+		const newEmailRegister = await getUser(email)
+		if (!newEmailRegister) throw new Error(CREATE_USER_ERROR)
+
+		const response = {
+			...RESPONSE_TEMPLATE,
+			code: 201,
+			message: messageCreateSuccessUser(newEmailRegister),
+		}
+		res.status(response.code).json(response)
+	} catch (error) {
+		sendErrorResponse({
+			errorMessage: error.message,
+			res,
+		})
+	}
 }
