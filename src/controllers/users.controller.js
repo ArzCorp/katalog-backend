@@ -21,10 +21,10 @@ const getUser = async (email) => {
 export const postUsersController = async (req, res) => {
 	try {
 		const { body } = req
-		const { password, name, lastname, email } = body
+		const { password, name, lastname, email, catalog_name } = body
 		const hashPassword = await hashSync(password, SALT_ROUNDS)
 
-		const newUserData = [name, hashPassword, email, lastname]
+		const newUserData = [name, hashPassword, email, lastname, catalog_name]
 		await pool.query(POST_USER_QUERY, newUserData)
 
 		const newEmailRegister = await getUser(email)

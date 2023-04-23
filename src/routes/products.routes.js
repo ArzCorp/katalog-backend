@@ -6,5 +6,5 @@ import {
 
 export const productRouter = Router()
 
-productRouter.get('/products', getProductsController)
+productRouter.get('/products/:id', getProductsController)
 productRouter.post('/products', addProductController)

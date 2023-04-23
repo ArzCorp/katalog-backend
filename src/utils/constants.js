@@ -24,8 +24,9 @@ export const messageCreateSuccessProduct = (productName) =>
 
 export const GET_USER_QUERY = 'SELECT * FROM users WHERE email = ?'
 export const POST_USER_QUERY =
-	'INSERT INTO users (name, password, email, lastname) VALUES (?, ?, ?, ?)'
-export const GET_PRODUCTS_QUERY = 'SELECT * FROM products'
+	'INSERT INTO users (name, password, email, lastname, catalog_name) VALUES (?, ?, ?, ?, ?)'
+export const GET_PRODUCTS_QUERY =
+	'SELECT id, name, description, price, image, inventory_quantity FROM products WHERE user_id = ?'
 export const ADD_PRODUCT_QUERY =
 	'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)'
 
