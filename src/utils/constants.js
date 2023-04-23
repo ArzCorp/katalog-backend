@@ -9,16 +9,25 @@ export const GENERIC_ERROR = 'Ocurrió un error inesperado intente más tarde'
 export const LOGIN_ERROR = 'Usuario o contraseña incorrectos'
 export const CREATE_USER_ERROR =
 	'Ocurrió un error al crear el usuario, intenta otra vez.'
+export const GET_PRODUCTS_ERROR =
+	'Error al obtener los productos intenta más tarde.'
+export const CREATE_PRODUCT_ERROR =
+	'Ocurrió un error al crear el producto intente más tarde.'
 
 export const getUserError = (email) =>
 	`El correo electronico ${email} no esta registrado`
 
 export const messageCreateSuccessUser = (email) =>
 	`Se generó usuario ${email} exitosamente`
+export const messageCreateSuccessProduct = (productName) =>
+	`Producto "${productName}" agregado exitosamente`
 
 export const GET_USER_QUERY = 'SELECT * FROM users WHERE email = ?'
 export const POST_USER_QUERY =
 	'INSERT INTO users (name, password, email, lastname) VALUES (?, ?, ?, ?)'
+export const GET_PRODUCTS_QUERY = 'SELECT * FROM products'
+export const ADD_PRODUCT_QUERY =
+	'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)'
 
 export const RESPONSE_TEMPLATE = {
 	code: 200,
