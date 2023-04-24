@@ -1,4 +1,4 @@
-import { GENERIC_ERROR, RESPONSE_TEMPLATE } from './constants.js'
+import { ERRORS, RESPONSE_TEMPLATE } from './constants.js'
 
 export const sendErrorResponse = ({ errorMessage, res, code = 500 }) => {
 	const response = {
@@ -11,7 +11,7 @@ export const sendErrorResponse = ({ errorMessage, res, code = 500 }) => {
 	if (errorMessage) {
 		response.message = errorMessage
 	} else {
-		response.message = GENERIC_ERROR
+		response.message = ERRORS.GENERIC
 	}
 
 	res.status(response.code).json(response)

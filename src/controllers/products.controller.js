@@ -1,11 +1,9 @@
 import { pool } from '../../db.js'
 import {
-	ADD_PRODUCT_QUERY,
-	CREATE_PRODUCT_ERROR,
-	GET_PRODUCTS_ERROR,
-	GET_PRODUCTS_QUERY,
+	ERRORS,
+	QUERYS,
 	RESPONSE_TEMPLATE,
-	messageCreateSuccessProduct,
+	SUCCESS_MESSAGES,
 } from '../utils/constants.js'
 import { sendErrorResponse } from '../utils/sendErrorResponse.js'
 
@@ -13,8 +11,8 @@ export const getProductsController = async (req, res) => {
 	const { params } = req
 	const userId = params.id
 	try {
-		const [products] = await pool.query(GET_PRODUCTS_QUERY, [userId])
-		if (!products.length > 0) throw new Error(GET_PRODUCTS_ERROR)
+		const [products] = await pool.query(QUERYS.GET_PRODUCTS, [userId])
+		if (!products.length > 0) throw new Error(ERRORS.GET_PRODUCTS)
 
 		const response = { ...RESPONSE_TEMPLATE }
 		response.data = products
@@ -42,13 +40,13 @@ export const addProductController = async (req, res) => {
 			price,
 			inventory_quantity,
 		]
-		const [addProduct] = await pool.query(ADD_PRODUCT_QUERY, newproductData)
+		const [addProduct] = await pool.query(QUERYS.ADD_PRODUCT, newproductData)
 		const productId = addProduct.insertId
-		if (!productId) throw new Error(CREATE_PRODUCT_ERROR)
+		if (!productId) throw new Error(ERRORS.CREATE_PRODUCT)
 
 		const response = { ...RESPONSE_TEMPLATE }
 		response.code = 201
-		response.message = messageCreateSuccessProduct(name)
+		response.message = SUCCESS_MESSAGES.CREATE_PRODUCT(name)
 		res.status(response.code).json(response)
 	} catch (error) {
 		sendErrorResponse({

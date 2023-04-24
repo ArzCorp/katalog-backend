@@ -2,33 +2,37 @@ export const EMPTY_STRING = ''
 
 export const SALT_ROUNDS = 10
 
-export const USERS_API_URL = '/users'
-export const LOGIN_API_URL = '/login'
+export const API_URLS = Object.freeze({
+	USERS: '/users',
+	LOG_IN: '/login',
+	GET_PRODUCTS_BY_USER: '/products/:id',
+	PRODUCTS: '/products',
+})
 
-export const GENERIC_ERROR = 'Ocurrió un error inesperado intente más tarde'
-export const LOGIN_ERROR = 'Usuario o contraseña incorrectos'
-export const CREATE_USER_ERROR =
-	'Ocurrió un error al crear el usuario, intenta otra vez.'
-export const GET_PRODUCTS_ERROR =
-	'Error al obtener los productos intenta más tarde.'
-export const CREATE_PRODUCT_ERROR =
-	'Ocurrió un error al crear el producto intente más tarde.'
+export const ERRORS = Object.freeze({
+	GENERIC: 'Ocurrió un error inesperado intente más tarde',
+	LOG_IN: 'Usuario o contraseña incorrectos',
+	CREATE_USER: 'Ocurrió un error al crear el usuario, intenta otra vez.',
+	GET_PRODUCTS: 'Error al obtener los productos intenta más tarde.',
+	CREATE_PRODUCT: 'Ocurrió un error al crear el producto intente más tarde.',
+	GET_USER: (email) => `El correo electronico ${email} no esta registrado`,
+})
 
-export const getUserError = (email) =>
-	`El correo electronico ${email} no esta registrado`
+export const QUERYS = Object.freeze({
+	GET_USER: 'SELECT * FROM users WHERE email = ?',
+	POST_USER:
+		'INSERT INTO users (name, password, email, lastname, catalog_name) VALUES (?, ?, ?, ?, ?)',
+	GET_PRODUCTS:
+		'SELECT id, name, description, price, image, inventory_quantity FROM products WHERE user_id = ?',
+	ADD_PRODUCT:
+		'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)',
+})
 
-export const messageCreateSuccessUser = (email) =>
-	`Se generó usuario ${email} exitosamente`
-export const messageCreateSuccessProduct = (productName) =>
-	`Producto "${productName}" agregado exitosamente`
-
-export const GET_USER_QUERY = 'SELECT * FROM users WHERE email = ?'
-export const POST_USER_QUERY =
-	'INSERT INTO users (name, password, email, lastname, catalog_name) VALUES (?, ?, ?, ?, ?)'
-export const GET_PRODUCTS_QUERY =
-	'SELECT id, name, description, price, image, inventory_quantity FROM products WHERE user_id = ?'
-export const ADD_PRODUCT_QUERY =
-	'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)'
+export const SUCCESS_MESSAGES = Object.freeze({
+	CREATE_USER: (email) => `Se generó usuario ${email} exitosamente`,
+	CREATE_PRODUCT: (productName) =>
+		`Producto "${productName}" agregado exitosamente`,
+})
 
 export const RESPONSE_TEMPLATE = {
 	code: 200,

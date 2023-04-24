@@ -1,11 +1,7 @@
 import { compareSync } from 'bcrypt'
 import { pool } from '../../db.js'
 import { sendErrorResponse } from '../utils/sendErrorResponse.js'
-import {
-	GET_USER_QUERY,
-	LOGIN_ERROR,
-	RESPONSE_TEMPLATE,
-} from '../utils/constants.js'
+import { QUERYS, ERRORS, RESPONSE_TEMPLATE } from '../utils/constants.js'
 
 export const logInController = async (req, res) => {
 	const { body } = req
@@ -13,8 +9,8 @@ export const logInController = async (req, res) => {
 	const userData = [email]
 
 	try {
-		const [currentUser] = await pool.query(GET_USER_QUERY, userData)
-		if (currentUser.length <= 0) throw new Error(LOGIN_ERROR)
+		const [currentUser] = await pool.query(QUERYS.GET_USER, userData)
+		if (currentUser.length <= 0) throw new Error(ERRORS.LOG_IN)
 
 		const currentUserPassword = currentUser[0].password
 		const passwordIsEqual = await compareSync(password, currentUserPassword)
@@ -29,7 +25,7 @@ export const logInController = async (req, res) => {
 		}
 
 		if (passwordIsEqual) return res.status(response.code).json(response)
-		throw new Error(LOGIN_ERROR)
+		throw new Error(ERRORS.LOG_IN)
 	} catch (error) {
 		sendErrorResponse({
 			errorMessage: error.message,

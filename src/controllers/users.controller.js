@@ -2,18 +2,16 @@ import { hashSync } from 'bcrypt'
 import { pool } from '../../db.js'
 import { sendErrorResponse } from '../utils/sendErrorResponse.js'
 import {
-	CREATE_USER_ERROR,
-	GET_USER_QUERY,
-	POST_USER_QUERY,
+	ERRORS,
+	QUERYS,
 	RESPONSE_TEMPLATE,
 	SALT_ROUNDS,
-	getUserError,
-	messageCreateSuccessUser,
+	SUCCESS_MESSAGES,
 } from '../utils/constants.js'
 
 const getUser = async (email) => {
-	const [queryResponse] = await pool.query(GET_USER_QUERY, [email])
-	if (queryResponse.length <= 0) throw new Error(getUserError(email))
+	const [queryResponse] = await pool.query(QUERYS.GET_USER, [email])
+	if (queryResponse.length <= 0) throw new Error(ERRORS.GET_USER(email))
 
 	return queryResponse[0].email
 }
@@ -25,15 +23,15 @@ export const postUsersController = async (req, res) => {
 		const hashPassword = await hashSync(password, SALT_ROUNDS)
 
 		const newUserData = [name, hashPassword, email, lastname, catalog_name]
-		await pool.query(POST_USER_QUERY, newUserData)
+		await pool.query(QUERYS.POST_USER, newUserData)
 
 		const newEmailRegister = await getUser(email)
-		if (!newEmailRegister) throw new Error(CREATE_USER_ERROR)
+		if (!newEmailRegister) throw new Error(ERRORS.CREATE_USER)
 
 		const response = {
 			...RESPONSE_TEMPLATE,
 			code: 201,
-			message: messageCreateSuccessUser(newEmailRegister),
+			message: SUCCESS_MESSAGES.CREATE_USER(newEmailRegister),
 		}
 		res.status(response.code).json(response)
 	} catch (error) {
