@@ -26,6 +26,7 @@ export const QUERYS = Object.freeze({
 		'SELECT id, name, description, price, image, inventory_quantity FROM products WHERE user_id = ?',
 	ADD_PRODUCT:
 		'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)',
+	GET_USER_BY_CATALOG_NAME: 'SELECT * FROM users WHERE catalog_name = ?',
 })
 
 export const SUCCESS_MESSAGES = Object.freeze({

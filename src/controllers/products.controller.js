@@ -9,8 +9,14 @@ import { sendErrorResponse } from '../utils/sendErrorResponse.js'
 
 export const getProductsController = async (req, res) => {
 	const { params } = req
-	const userId = params.id
+	const catalogName = params.id
+
 	try {
+		const [user] = await pool.query(QUERYS.GET_USER_BY_CATALOG_NAME, [
+			catalogName,
+		])
+		const userId = user[0].id
+
 		const [products] = await pool.query(QUERYS.GET_PRODUCTS, [userId])
 		if (!products.length > 0) throw new Error(ERRORS.GET_PRODUCTS)
 
