@@ -1,5 +1,5 @@
 {
-	"name": "nenis-store-app-backend",
+	"name": "katalog-backend",
 	"version": "1.0.0",
 	"description": "This is a project to testing node js with MySQL",
 	"main": "index.js",
