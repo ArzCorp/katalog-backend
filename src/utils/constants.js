@@ -7,6 +7,7 @@ export const API_URLS = Object.freeze({
 	LOG_IN: '/login',
 	GET_PRODUCTS_BY_USER: '/products/:id',
 	PRODUCTS: '/products',
+	DELETE_PRODUCT: '/products/:id',
 })
 
 export const ERRORS = Object.freeze({
@@ -16,6 +17,8 @@ export const ERRORS = Object.freeze({
 	GET_PRODUCTS: 'Error al obtener los productos intenta más tarde.',
 	CREATE_PRODUCT: 'Ocurrió un error al crear el producto intente más tarde.',
 	GET_USER: (email) => `El correo electronico ${email} no esta registrado`,
+	DELETE_PRODUCT: 'Ocurrió un error al eliminar el producto intente más tarde.',
+	PRODUCT_NOT_EXIST: 'El producto no existe.',
 })
 
 export const QUERYS = Object.freeze({
@@ -25,12 +28,14 @@ export const QUERYS = Object.freeze({
 	GET_PRODUCTS: 'CALL get_user_products(?)',
 	ADD_PRODUCT:
 		'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)',
+	DELETE_PRODUCT: 'DELETE FROM products WHERE products.id = ?',
 })
 
 export const SUCCESS_MESSAGES = Object.freeze({
 	CREATE_USER: (email) => `Se generó usuario ${email} exitosamente`,
 	CREATE_PRODUCT: (productName) =>
 		`Producto "${productName}" agregado exitosamente`,
+	DELETE_PRODUCT: 'Producto eliminado con éxito.',
 })
 
 export const RESPONSE_TEMPLATE = {

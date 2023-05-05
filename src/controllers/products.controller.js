@@ -58,3 +58,24 @@ export const addProductController = async (req, res) => {
 		})
 	}
 }
+
+export const deleteProductController = async (req, res) => {
+	try {
+		const { params } = req
+		const productId = params.id
+
+		const [queryResult] = await pool.query(QUERYS.DELETE_PRODUCT, [productId])
+		if (queryResult.affectedRows <= 0) throw new Error(ERRORS.PRODUCT_NOT_EXIST)
+
+		const response = { ...RESPONSE_TEMPLATE }
+		response.code = 201
+		response.message = SUCCESS_MESSAGES.DELETE_PRODUCT
+		res.status(response.code).json(response)
+	} catch (error) {
+		sendErrorResponse({
+			errorMessage: error.message,
+			code: 500,
+			res,
+		})
+	}
+}
