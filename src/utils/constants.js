@@ -22,11 +22,9 @@ export const QUERYS = Object.freeze({
 	GET_USER: 'SELECT * FROM users WHERE email = ?',
 	POST_USER:
 		'INSERT INTO users (name, password, email, lastname, catalog_name) VALUES (?, ?, ?, ?, ?)',
-	GET_PRODUCTS:
-		'SELECT id, name, description, price, image, inventory_quantity FROM products WHERE user_id = ?',
+	GET_PRODUCTS: 'CALL get_user_products(?)',
 	ADD_PRODUCT:
 		'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)',
-	GET_USER_BY_CATALOG_NAME: 'SELECT * FROM users WHERE catalog_name = ?',
 })
 
 export const SUCCESS_MESSAGES = Object.freeze({
