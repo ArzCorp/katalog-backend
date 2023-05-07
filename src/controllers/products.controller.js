@@ -13,12 +13,16 @@ export const getProductsController = async (req, res) => {
 
 	try {
 		const [[products]] = await pool.query(QUERYS.GET_PRODUCTS, [catalogName])
-
-		if (!products.length > 0) throw new Error(ERRORS.GET_PRODUCTS)
-
 		const response = { ...RESPONSE_TEMPLATE }
-		response.data = products
-		response.results = products.length
+
+		if (!products.length > 0) {
+			response.code = 201
+			response.message = ERRORS.EMPTY_PRODUCTS
+		} else {
+			response.data = products
+			response.results = products.length
+		}
+
 		res.status(response.code).json(response)
 	} catch (error) {
 		sendErrorResponse({

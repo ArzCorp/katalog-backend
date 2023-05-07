@@ -19,6 +19,7 @@ export const ERRORS = Object.freeze({
 	GET_USER: (email) => `El correo electronico ${email} no esta registrado`,
 	DELETE_PRODUCT: 'Ocurrió un error al eliminar el producto intente más tarde.',
 	PRODUCT_NOT_EXIST: 'El producto no existe.',
+	EMPTY_PRODUCTS: 'El usuario no tiene productos.',
 })
 
 export const QUERYS = Object.freeze({
