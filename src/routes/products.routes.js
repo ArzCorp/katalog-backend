@@ -6,8 +6,8 @@ import {
 } from '../controllers/products.controller.js'
 import { API_URLS } from '../utils/constants.js'
 
-export const productRouter = Router()
+export const productsRouter = Router()
 
-productRouter.get(API_URLS.GET_PRODUCTS_BY_USER, getProductsController)
-productRouter.post(API_URLS.PRODUCTS, addProductController)
-productRouter.delete(API_URLS.DELETE_PRODUCT, deleteProductController)
+productsRouter.get(API_URLS.GET_PRODUCTS_BY_USER, getProductsController)
+productsRouter.post(API_URLS.PRODUCTS, addProductController)
+productsRouter.delete(API_URLS.DELETE_PRODUCT, deleteProductController)

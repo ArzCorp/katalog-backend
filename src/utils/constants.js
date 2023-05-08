@@ -8,6 +8,7 @@ export const API_URLS = Object.freeze({
 	GET_PRODUCTS_BY_USER: '/products/:id',
 	PRODUCTS: '/products',
 	DELETE_PRODUCT: '/products/:id',
+	GET_PRODUCT: '/product/:id',
 })
 
 export const ERRORS = Object.freeze({
@@ -30,6 +31,7 @@ export const QUERYS = Object.freeze({
 	ADD_PRODUCT:
 		'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)',
 	DELETE_PRODUCT: 'DELETE FROM products WHERE products.id = ?',
+	GET_PRODUCT: 'SELECT * FROM products WHERE id = ?',
 })
 
 export const SUCCESS_MESSAGES = Object.freeze({
