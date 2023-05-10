@@ -8,6 +8,8 @@ export const API_URLS = Object.freeze({
 	GET_PRODUCTS_BY_USER: '/products/:id',
 	PRODUCTS: '/products',
 	DELETE_PRODUCT: '/products/:id',
+	GET_PRODUCT: '/product/:id',
+	UPDATE_PRODUCT: '/product/update',
 })
 
 export const ERRORS = Object.freeze({
@@ -20,6 +22,7 @@ export const ERRORS = Object.freeze({
 	DELETE_PRODUCT: 'Ocurrió un error al eliminar el producto intente más tarde.',
 	PRODUCT_NOT_EXIST: 'El producto no existe.',
 	EMPTY_PRODUCTS: 'El usuario no tiene productos.',
+	PRODUCT_UPDATE: 'Error al actualizar el producto, intente más tarde.',
 })
 
 export const QUERYS = Object.freeze({
@@ -30,6 +33,8 @@ export const QUERYS = Object.freeze({
 	ADD_PRODUCT:
 		'INSERT INTO products (name, description, image, user_id, price, inventory_quantity) VALUES (?, ?, ?, ?, ?, ?)',
 	DELETE_PRODUCT: 'DELETE FROM products WHERE products.id = ?',
+	GET_PRODUCT: 'SELECT * FROM products WHERE id = ?',
+	UPDATE_PRODUCT: 'CALL update_product(?, ?, ?, ?, ?, ?) ;',
 })
 
 export const SUCCESS_MESSAGES = Object.freeze({
@@ -37,6 +42,7 @@ export const SUCCESS_MESSAGES = Object.freeze({
 	CREATE_PRODUCT: (productName) =>
 		`Producto "${productName}" agregado exitosamente`,
 	DELETE_PRODUCT: 'Producto eliminado con éxito.',
+	UPDATE_PRODUCT: 'Producto actualizado con éxito.',
 })
 
 export const RESPONSE_TEMPLATE = {
